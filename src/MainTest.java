@@ -22,11 +22,17 @@ public class MainTest {
         System.out.println(ck.getTime());
         ck.timeTick();
         System.out.println(ck.getTime() + "as");
+        ck.timeTick();
+        System.out.println(ck.getTime() + "as");
         ck.switchFormat();
-        ck.timeTick();
+        System.out.println(ck.getTime());
+        ck.setTime(23,59);
         System.out.println(ck.getTime());
         ck.timeTick();
-        System.out.println(ck.getTime());
+        System.out.println(ck.getTime() + "as");
+        //Inte testat ALARM CLOCK
+
+
 
 
 

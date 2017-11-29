@@ -8,22 +8,18 @@ public class Clock {
     private boolean s = false;
     String ampmString = "AM";
 
-
-    Clock(){
-        s =false;
-        this.hours = new NumberDisplay(24);
-        this.minutes = new NumberDisplay(60);
-        this.hours.setValue(0);
-        this.minutes.setValue(0);
-    }
-
     Clock(boolean s) {
         this.s = s;
+        if (s == true) {
+            this.hours = new NumberDisplay(13);
+            this.minutes = new NumberDisplay(60);
+            this.hours.setValue(1);
+        } else {
             this.hours = new NumberDisplay(24);
             this.minutes = new NumberDisplay(60);
             this.hours.setValue(0);
-            this.minutes.setValue(0);
-
+        }
+        this.minutes.setValue(0);
     }
 
     public Clock(int hour, int minute, boolean s) {
@@ -36,34 +32,21 @@ public class Clock {
     public void timeTick() {
         this.minutes.increment();
         if (this.minutes.getValue() == 0) {
-            this.hours.increment();
-            if (s == true) {
-                if (this.hours.getValue() >= 12) {
-                    hours.setValue(1);
-                }
+            if ((s = true) && (this.hours.getValue() >= 12)) {
+                this.hours.increment();                 //incremenet limit broken maybe?
+                this.hours.increment();
                 if (ampmString.equals("AM")) {
                     ampmString = "PM";
                 } else {
                     ampmString = "AM";
                 }
-            }else {
-                ampmString = "AM";
-
+            } else{
+                this.hours.increment();
             }
         }
-
-
     }
 
     public void setTime(int hour, int minute) {
-        if (s == true) {
-            if (hour > 12) {
-             hour = hour - 12;
-
-            }else if (hour == 0){
-                hour = 1;
-            }
-        }
         this.hours.setValue(hour);
         this.minutes.setValue(minute);
     }
@@ -71,9 +54,7 @@ public class Clock {
     public void setTime(int hour, int minute, String ampm) {
         this.hours.setValue(hour);
         this.minutes.setValue(minute);
-        this.ampmString = ampm.toUpperCase();
-
-
+        this.ampmString = ampm;
     }
 
     public void switchFormat() {
@@ -111,13 +92,5 @@ public class Clock {
         } else {
             displayString = this.hours.getDisplayValue() + ":" + this.minutes.getDisplayValue();
         }
-    }
-
-    public int getHour(){
-       return this.hours.getValue();
-    }
-
-    public int getMin(){
-        return this.minutes.getValue();
     }
 }
